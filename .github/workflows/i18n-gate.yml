@@ -35,7 +35,8 @@ jobs:
           fetch-depth: ${{ inputs.pin-changes-only && 2 || 1 }}
       - name: Check out craft-i18n
         id: i18n
-        uses: storytold/craft-common-actions/actions/checkout-craft-i18n@main
+        # Fork-only reference; restore to storytold/craft-common-actions/...@main for the PR.
+        uses: william-wwh/craft-common-actions/actions/checkout-craft-i18n@ci/freebsd-cross-final
       - name: Decide whether to run
         id: run
         if: steps.i18n.outputs.rev != '' && !inputs.skip
@@ -49,7 +50,8 @@ jobs:
           fi
           echo "gate=true" >>"$GITHUB_OUTPUT"
       - if: steps.run.outputs.gate == 'true'
-        uses: storytold/craft-common-actions/actions/install-linux-deps@main
+        # Fork-only reference; restore to storytold/craft-common-actions/...@main for the PR.
+        uses: william-wwh/craft-common-actions/actions/install-linux-deps@ci/freebsd-cross-final
       - if: steps.run.outputs.gate == 'true'
         uses: dtolnay/rust-toolchain@683b588c487a69d01f6c6ddf40f036ff682cc2c8 # v1
         with:

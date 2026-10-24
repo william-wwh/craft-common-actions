@@ -102,7 +102,7 @@ jobs:
     # Fork-only: the upstream storytold/craft-common-actions is not reachable from
     # this fork's runs, so the reusable workflow is resolved inside the fork branch.
     # Restore to storytold/craft-common-actions/...@main before opening the PR.
-    uses: storytold/craft-common-actions/.github/workflows/i18n-gate.yml@main
+    uses: william-wwh/craft-common-actions/.github/workflows/i18n-gate.yml@ci/freebsd-cross-final
     with:
       pin-changes-only: true
 
@@ -218,12 +218,12 @@ jobs:
       - name: Check out craft-fonts
         if: inputs.craft-fonts-ref != ''
         # Fork-only reference; restore to storytold/craft-common-actions/...@main for the PR.
-        uses: storytold/craft-common-actions/actions/checkout-craft-fonts@main
+        uses: william-wwh/craft-common-actions/actions/checkout-craft-fonts@ci/freebsd-cross-final
         with:
           ref: ${{ inputs.craft-fonts-ref }}
       - name: Check out craft-i18n
         # Fork-only reference; restore to storytold/craft-common-actions/...@main for the PR.
-        uses: storytold/craft-common-actions/actions/checkout-craft-i18n@main
+        uses: william-wwh/craft-common-actions/actions/checkout-craft-i18n@ci/freebsd-cross-final
       
       - name: Resolve FreeBSD release
         id: freebsd-release
