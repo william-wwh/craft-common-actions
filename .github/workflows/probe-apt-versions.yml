@@ -11,7 +11,7 @@ jobs:
         run: |
           sudo apt-get update
           echo "=== Copy these into freebsd-cross.yml ==="
-          for p in clang lld pkg-config mold; do
+          for p in clang-18 lld-18; do
             v=$(apt-cache policy "$p" | awk '/Candidate:/{print $2}')
             printf '%s=%s\n' "$p" "$v"
           done
