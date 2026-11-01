@@ -1,0 +1,20 @@
+name: Probe apt versions
+
+on:
+  workflow_dispatch: {}   # 只能手动触发，不影响 PR 和 CI
+
+jobs:
+  probe:
+    runs-on: ubuntu-24.04   # 必须和 freebsd-cross.yml 的 runs-on 一致
+    steps:
+      - name: Query candidate versions
+        run: |
+          sudo apt-get update
+          echo "=== Copy these into freebsd-cross.yml ==="
+          for p in clang lld pkg-config mold; do
+            v=$(apt-cache policy "$p" | awk '/Candidate:/{print $2}')
+            printf '%s=%s\n' "$p" "$v"
+          done
+          echo ""
+          echo "=== Full policy (reference) ==="
+          apt-cache policy clang lld pkg-config mold
